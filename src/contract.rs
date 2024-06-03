@@ -7,6 +7,7 @@ use linera_sdk::{
     views::{RootView, View, ViewStorageContext},
     Contract, ContractRuntime,
 };
+use my_fungible::Message;
 
 use self::state::Application;
 
@@ -22,7 +23,7 @@ impl WithContractAbi for ApplicationContract {
 }
 
 impl Contract for ApplicationContract {
-    type Message = ();
+    type Message = Message;
     type Parameters = ();
     type InstantiationArgument = ();
 
