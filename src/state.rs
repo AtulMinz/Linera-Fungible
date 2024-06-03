@@ -10,8 +10,9 @@ pub struct Fungible {
 //Implement logic as wrapper aroung the state.
 
 //1. Initialise
-//2. Credit
-//3. Debit
+//2. Balance
+//3. Credit
+//4. Debit
 impl Fungible {
     pub async fn initialize_accounts(&mut self, account: Owner, amount: Amount) {
         self.accounts
@@ -33,5 +34,15 @@ impl Fungible {
         self.accounts
             .insert(&account, balance)
             .expect("Failed to credit")
+    }
+
+    pub async fn debit(&mut self, account: Owner, amount: Amount) {
+        let mut balance = self.balance(&account).await;
+        balance
+            .try_sub_assign(amount)
+            .expect("Insufficient balance for transfer");
+        self.accounts
+            .insert(&account, balance)
+            .expect("Failed to update balance")
     }
 }
