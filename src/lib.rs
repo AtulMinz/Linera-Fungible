@@ -1,6 +1,7 @@
+use async_graphql::InputObject;
 use linera_sdk::base::{Amount, ChainId, ContractAbi, Owner, ServiceAbi};
 use linera_sdk::graphql::GraphQLMutationRoot;
-use linera_sdk::views::linera_views::serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 
 pub struct ApplicationAbi;
 
@@ -23,6 +24,14 @@ pub enum Operation {
     },
 }
 
+#[derive(Debug, Deserialize, Serialize)]
+pub enum Message {
+    Credit { owner: Owner, amount: Amount },
+}
+
+#[derive(
+    Debug, Clone, Copy, Deserialize, Serialize, Eq, Ord, PartialEq, PartialOrd, InputObject,
+)]
 pub struct Account {
     pub chain_id: ChainId,
     pub owner: Owner,
