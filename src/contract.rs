@@ -38,6 +38,7 @@ impl Contract for FungibleContract {
 
     //The first time the application is created on a given chain.
     async fn instantiate(&mut self, _argument: Self::InstantiationArgument) {
+        //Here we are creating a million tokens and giving it to the one initialising the operation.
         let amount = Amount::from_str("1_000_000").unwrap();
         if let Some(owner) = self.runtime.authenticated_signer() {
             self.state.initialize_accounts(owner, amount).await;
