@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 pub struct ApplicationAbi;
 
 impl ContractAbi for ApplicationAbi {
-    type Operation = ();
+    type Operation = Operation;
     type Response = ();
 }
 
