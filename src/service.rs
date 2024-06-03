@@ -2,7 +2,7 @@
 
 mod state;
 
-use self::state::Application;
+use self::state::Fungible;
 use linera_sdk::{
     base::WithServiceAbi,
     views::{View, ViewStorageContext},
@@ -10,7 +10,7 @@ use linera_sdk::{
 };
 
 pub struct ApplicationService {
-    state: Application,
+    state: Fungible,
     runtime: ServiceRuntime<Self>,
 }
 
@@ -24,7 +24,7 @@ impl Service for ApplicationService {
     type Parameters = ();
 
     async fn new(runtime: ServiceRuntime<Self>) -> Self {
-        let state = Application::load(ViewStorageContext::from(runtime.key_value_store()))
+        let state = Fungible::load(ViewStorageContext::from(runtime.key_value_store()))
             .await
             .expect("Failed to load state");
         ApplicationService { state, runtime }
