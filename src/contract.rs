@@ -9,10 +9,10 @@ use linera_sdk::{
 };
 use my_fungible::Message;
 
-use self::state::Application;
+use self::state::Fungible;
 
 pub struct ApplicationContract {
-    state: Application,
+    state: Fungible,
     runtime: ContractRuntime<Self>,
 }
 
@@ -28,7 +28,7 @@ impl Contract for ApplicationContract {
     type InstantiationArgument = ();
 
     async fn load(runtime: ContractRuntime<Self>) -> Self {
-        let state = Application::load(ViewStorageContext::from(runtime.key_value_store()))
+        let state = Fungible::load(ViewStorageContext::from(runtime.key_value_store()))
             .await
             .expect("Failed to load state");
         ApplicationContract { state, runtime }
