@@ -8,11 +8,11 @@ pub struct Fungible {
 }
 
 //Implement logic as wrapper aroung the state.
-
 //1. Initialise
 //2. Balance
 //3. Credit
 //4. Debit
+
 impl Fungible {
     pub async fn initialize_accounts(&mut self, account: Owner, amount: Amount) {
         self.accounts
