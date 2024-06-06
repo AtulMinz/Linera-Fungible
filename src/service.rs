@@ -9,25 +9,25 @@ use linera_sdk::{
     Service, ServiceRuntime,
 };
 
-pub struct ApplicationService {
+pub struct FungibleService {
     state: Fungible,
     runtime: ServiceRuntime<Self>,
 }
 
-linera_sdk::service!(ApplicationService);
+linera_sdk::service!(FungibleService);
 
-impl WithServiceAbi for ApplicationService {
+impl WithServiceAbi for FungibleService {
     type Abi = my_fungible::ApplicationAbi;
 }
 
-impl Service for ApplicationService {
+impl Service for FungibleService {
     type Parameters = ();
 
     async fn new(runtime: ServiceRuntime<Self>) -> Self {
         let state = Fungible::load(ViewStorageContext::from(runtime.key_value_store()))
             .await
             .expect("Failed to load state");
-        ApplicationService { state, runtime }
+        FungibleService { state, runtime }
     }
 
     async fn handle_query(&self, _query: Self::Query) -> Self::QueryResponse {
