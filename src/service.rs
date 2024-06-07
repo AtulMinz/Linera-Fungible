@@ -23,7 +23,7 @@ impl WithServiceAbi for FungibleService {
 impl Service for FungibleService {
     type Parameters = ();
 
-    // Instanceous a fungible service by loading the state from Storage
+    // Instanceous a fungible service by loading the state from storage
     async fn new(runtime: ServiceRuntime<Self>) -> Self {
         let state = Fungible::load(ViewStorageContext::from(runtime.key_value_store()))
             .await
