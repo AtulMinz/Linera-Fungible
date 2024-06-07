@@ -23,6 +23,7 @@ impl WithServiceAbi for FungibleService {
 impl Service for FungibleService {
     type Parameters = ();
 
+    // Instanceous a fungible service by loading the state from Storage
     async fn new(runtime: ServiceRuntime<Self>) -> Self {
         let state = Fungible::load(ViewStorageContext::from(runtime.key_value_store()))
             .await
@@ -30,6 +31,7 @@ impl Service for FungibleService {
         FungibleService { state, runtime }
     }
 
+    //Query coming from outside world how do we reason about giving back a response.
     async fn handle_query(&self, _query: Self::Query) -> Self::QueryResponse {
         panic!("Queries not supported by application");
     }
