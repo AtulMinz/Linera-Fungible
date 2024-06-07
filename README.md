@@ -1,1 +1,1 @@
-Linera Fungible Token
+## Linera Fungible Token
