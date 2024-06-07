@@ -62,7 +62,11 @@ impl Contract for FungibleContract {
     }
 
     //How do we handle incoming message coming from a different chain.
-    async fn execute_message(&mut self, _message: Self::Message) {}
+    async fn execute_message(&mut self, message: Self::Message) {
+        match message {
+            Message::Credit { amount, owner } => self.state.credit(owner, amount).await,
+        }
+    }
 
     async fn store(mut self) {
         self.state.save().await.expect("Failed to save state");
