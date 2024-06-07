@@ -1,4 +1,4 @@
-use async_graphql::InputObject;
+use async_graphql::{InputObject, Request, Response};
 use linera_sdk::base::{Amount, ChainId, ContractAbi, Owner, ServiceAbi};
 use linera_sdk::graphql::GraphQLMutationRoot;
 use serde::{Deserialize, Serialize};
@@ -11,8 +11,8 @@ impl ContractAbi for ApplicationAbi {
 }
 
 impl ServiceAbi for ApplicationAbi {
-    type Query = ();
-    type QueryResponse = ();
+    type Query = Request;
+    type QueryResponse = Response;
 }
 
 #[derive(Debug, Deserialize, Serialize, GraphQLMutationRoot)]
