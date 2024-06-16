@@ -27,7 +27,7 @@ impl WithContractAbi for FungibleContract {
 impl Contract for FungibleContract {
     type Message = Message;
     type Parameters = ();
-    type InstantiationArgument = ();
+    type InstantiationArgument = Amount;
 
     async fn load(runtime: ContractRuntime<Self>) -> Self {
         let state = Fungible::load(ViewStorageContext::from(runtime.key_value_store()))
@@ -37,7 +37,7 @@ impl Contract for FungibleContract {
     }
 
     //The first time the application is created on a given chain.
-    async fn instantiate(&mut self, _argument: Self::InstantiationArgument) {
+    async fn instantiate(&mut self, amount: Self::InstantiationArgument) {
         //Here we are creating a million tokens and giving it to the one initialising the operation.
         let amount = Amount::from_str("1_000_000").unwrap();
         if let Some(owner) = self.runtime.authenticated_signer() {
